@@ -123,8 +123,9 @@ Vue.prototype.HOST = "/api"
 - 如：获取电影Top250 第一页 2条数据：
   豆瓣API:<https://api.douban.com/v2/movie/top250?start=0&count=2>
 
-然后可以在HomeContainer.vue中做如下代码：
+> 然后可以在HomeContainer.vue中做如下代码：
 
+```
 <template>
     <div>
         <mt-swipe :auto="4000">
@@ -132,6 +133,27 @@ Vue.prototype.HOST = "/api"
             <img :src="item.images.large" alt=""/>
         </mt-swipe-item>
         </mt-swipe>
+
+        <ul class="mui-table-view mui-grid-view mui-grid-9">
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+                    <img class="menu-icon" src="../../images/menu1.png" alt="" />
+                    <div class="mui-media-body">新闻资讯</div></a></li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+                    <img class="menu-icon" src="../../images/menu2.png" alt="" />
+                    <div class="mui-media-body">图片分享</div></a></li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+                    <img class="menu-icon" src="../../images/menu3.png" alt="" />
+                    <div class="mui-media-body">商品购买</div></a></li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+                    <img class="menu-icon" src="../../images/menu4.png" alt="" />
+                    <div class="mui-media-body">留言反馈</div></a></li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+                    <img class="menu-icon" src="../../images/menu5.png" alt="" />
+                    <div class="mui-media-body">视频专区</div></a></li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+                    <img class="menu-icon" src="../../images/menu6.png" alt="" />
+                    <div class="mui-media-body">联系我们</div></a></li>
+		</ul> 
     </div>
 </template>
 <script>
@@ -149,9 +171,7 @@ export default {
             var url = this.HOST + "/v2/movie/in_theaters?city=广州&start=0&count=3"
         this.$axios.get(url)
         .then(response => {
-            console.log(response.data.subjects);
             this.listarr = response.data.subjects
-            console.log(this.listarr);   
         })
         .catch(error => {
             console.log(error);
@@ -166,7 +186,27 @@ export default {
     width: 100%;
     height: 200px;
 }
+img{
+    width: 100%;
+    height: 100%;
+}
+.mui-grid-view.mui-grid-9{
+    background-color: white;
+}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell{
+    border: 0px;
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{
+    font-size: 13px;
+}
+.menu-icon{
+    width: 60px;
+    height: 60px;
+}
 </style>
+
+```
+
 
 
 
