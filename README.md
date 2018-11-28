@@ -101,7 +101,7 @@ router
 
 >找到config目录下的index.js文件,然后找到proxyTable，进行修改，修改内容如下：
 
-```
+```js
 proxyTable: {
       '/api': {
         target: 'https://api.douban.com',//设置你调用的接口域名和端口号 别忘了加http
@@ -125,7 +125,7 @@ Vue.prototype.HOST = "/api"
 
 > 然后可以在HomeContainer.vue中做如下代码：
 
-```
+```vue
 <template>
     <div>
         <mt-swipe :auto="4000">
@@ -222,11 +222,11 @@ Vue.prototype.HOST = "/api"
 >vue中使用跨域url请求则请求地址可以如下写法
 `var url = this.HOST + "/v2/movie/in_theaters?city=广州&start=0&count=3"`
 
-#### 注意使用axios中的写法
+注意使用axios中的写法
 
 ##### 一、不要使用下面这种方法【这时候你运行时会发现，数据可以请求到，但是会报错 TypeError: Cannot set property 'listgroup' of undefined 】
 
-```
+```vue
 axios.get('/user?ID=12345')
   .then(function (response) {
     console.log(response);
@@ -238,7 +238,7 @@ axios.get('/user?ID=12345')
 
 ##### 二、使用这种方法
 
-```
+```vue
 this.$axios.get(url)
         .then(response => {
             console.log(response.data.subjects);
@@ -249,3 +249,31 @@ this.$axios.get(url)
             console.log(error);
         });
 ```
+
+
+
+#### 页面布局知识小结
+
+在一个div中如果有两个span类似的标签可以使用css3的方法使其两端对齐
+
+```css
+.mui-ellipsis{
+    display: flex;
+    justify-content: space-between;
+}
+```
+
+#### vue路径设置和参数获取
+
+vue中设置带参数的路由路径
+
+```
+{path:'/home/newsInfo/:id', name: "newsInfo", component: NewsInfo}
+```
+
+vue中组件获取参数的方法
+
+```vue
+{{ $route.params.id }}
+```
+
