@@ -43,9 +43,7 @@ export default {
             var url = this.HOST + "/v2/movie/in_theaters?city=广州&start=0&count=3"
         this.$axios.get(url)
         .then(response => {
-            console.log(response.data.subjects);
             this.listarr = response.data.subjects
-            console.log(this.listarr);   
         })
         .catch(error => {
             console.log(error);

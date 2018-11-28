@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-   <mt-header fixed title="固定在顶部"></mt-header>
+   <mt-header fixed title="小程序demo"></mt-header>
 	<transition>
 		<router-view></router-view>
 	</transition>
