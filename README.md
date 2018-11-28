@@ -1,6 +1,6 @@
-# weidemo
+# 跟着学习的demo项目
 
-> A Vue.js project
+> 一个 Vue.js 的demo项目，主要是使用npm搭建开发vue init webpack  kitt-ui
 
 ## Build Setup
 
@@ -263,6 +263,14 @@ this.$axios.get(url)
 }
 ```
 
+一行的数据缩进方法css3
+
+```
+text-indent: 2rem;
+```
+
+
+
 #### vue路径设置和参数获取
 
 vue中设置带参数的路由路径
@@ -276,4 +284,34 @@ vue中组件获取参数的方法
 ```vue
 {{ $route.params.id }}
 ```
+
+#### vue引入mui问题
+
+> vue中引入mui的js文件报错，错误如下：
+
+```javascript
+Uncaught TypeError: 'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them
+```
+
+> 解决方案
+
+这是由于webpack 的严格语法模式导致，
+
+【方案一、去除严格语法】
+
+[去除方案一]: https://github.com/genify/babel-plugin-transform-remove-strict-mode
+
+【方案二、.babelrc文件中忽略不需要使用严格模式转换的文件路径】
+
+在.babelrc文件中添加
+
+```javascript
+"ignore": [
+    "./src/lib/js/mui.min.js"
+    ]
+```
+
+#### 集成图片预览插件
+
+[图片预览插件vue-preview]: https://github.com/LS1231/vue-preview
 

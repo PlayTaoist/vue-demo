@@ -2,8 +2,8 @@
     <div>
         <h3 class="comment">发表评论</h3>
         <hr>
-        <textarea placeholder="请输入评论内容" maxlength="200"></textarea>
-        <mt-button type="primary" size="large">发表评论</mt-button>
+        <textarea placeholder="请输入评论内容" maxlength="200" v-model="msg"></textarea>
+        <mt-button type="primary" size="large" @click="subComment">发表评论</mt-button>
         <div class="comment_text">
             <div class="comment_title">第一楼&nbsp;&nbsp;用户：匿名用户&nbsp;&nbsp;发表时间:2018-11-28 15:55:22</div>
             <div class="comment_body">李师师时候的上帝发誓地方</div>
@@ -19,7 +19,8 @@ export default {
     data(){
         return{
             pageIndex : 1,//页码
-            comments:[]
+            comments:[],
+            msg:''//评论内容
         }
     },
     created(){
@@ -29,6 +30,34 @@ export default {
         getMore(){
             this.pageIndex++
             this.getComments()
+        },
+        //提交评论
+        subComment(){
+            var url = this.HOST + "/v2/movie/subject/" + this.id 
+            //校检时候为空
+            if (this.msg.length === 0) {
+                return Toast('评论内容不能为空！')
+            }
+            this.$axios({
+                method: 'post',
+                url: url,
+                data: {
+                    content: this.msg.trim()
+                }
+                })
+                .then(result => {
+                    console.log(result.data)
+                    var cmt = {
+                        user_name: "匿名用户",
+                        add_time:Date.now(),
+                        content:this.msg.trim()
+                    }
+                    this.comments.unshift(cmt)
+                    this.msg = ''
+                })
+                .catch(error => {
+                    Toast('获取信息失败');
+                })
         },
         //暂时无获取评论接口
         getComments(){
