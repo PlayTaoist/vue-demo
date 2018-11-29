@@ -4,9 +4,9 @@
         <hr>
         <textarea placeholder="请输入评论内容" maxlength="200" v-model="msg"></textarea>
         <mt-button type="primary" size="large" @click="subComment">发表评论</mt-button>
-        <div class="comment_text">
-            <div class="comment_title">第一楼&nbsp;&nbsp;用户：匿名用户&nbsp;&nbsp;发表时间:2018-11-28 15:55:22</div>
-            <div class="comment_body">李师师时候的上帝发誓地方</div>
+        <div class="comment_text" v-for="(item, index) in comments" :key="item.id">
+            <div class="comment_title">第{{index+1}}楼&nbsp;&nbsp;用户：{{item.user.username}}&nbsp;&nbsp;发表时间:{{item.ctime | datetimeFormat}}</div>
+            <div class="comment_body">{{item.content}}</div>
         </div>
         <mt-button type="danger" plain  size="large" @click="getMore">加载更多</mt-button>
     </div>
@@ -37,6 +37,9 @@ export default {
             //校检时候为空
             if (this.msg.length === 0) {
                 return Toast('评论内容不能为空！')
+            }else{
+                this.msg = ''
+                return Toast('评论接口暂未实现！')
             }
             this.$axios({
                 method: 'post',
@@ -61,11 +64,13 @@ export default {
         },
         //暂时无获取评论接口
         getComments(){
-            var url = this.HOST + "/v2/movie/subject/" + this.id 
+            var url = "https://www.apiopen.top/satinCommentApi?id=27610708&page=" + this.pageIndex 
             this.$axios.get(url)
                 .then(result => {
-                    console.log(result.data)
-                    this.comments = this.comments.concat(result.data);
+                    console.log(result.data.data)
+                    if (result.data.code === 200) {
+                        this.comments = this.comments.concat(result.data.data.normal.list);
+                    }                   
                 })
                 .catch(error => {
                     Toast('获取信息失败');
@@ -93,6 +98,7 @@ textarea{
     font-size: 12px;
     background-color: #ccc;
     line-height: 30px;
+    padding-left: 5px;
 }
 .comment_body{
     font-size: 12px;
