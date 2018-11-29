@@ -295,7 +295,7 @@ Uncaught TypeError: 'caller', 'callee', and 'arguments' properties may not be ac
 
 > 解决方案
 
-这是由于<font color=#DC143C face="微软雅黑">**webpack**</font> 的严格语法模式导致，
+这是由于<font color=#DC143C face="微软雅黑">webpack</font> 的严格语法模式导致，
 
 【方案一、去除严格语法】
 
